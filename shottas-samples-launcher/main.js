@@ -1,9 +1,10 @@
 var eventoControlado = false;
 var validadorQ = false;
 var validadorA = false;
-var idUltimoControl = 0;
-var MAX_SHIT = 10;
+var idUltimoControl = -1;
+var MAX_SHIT = 9;
 var MAX_IMG = 17;
+var LANZAR_DIRECTO = false;
 
 window.onload = function() {
   document.onkeypress = mostrarInformacionCaracter;
@@ -27,6 +28,14 @@ $("#partyOFF").click( function() {
 
 $("#agregarControl").click( function() {
   agregarControl();
+});
+
+$("#lanzarDirecto").click( function() {
+  if (this.checked) {
+         LANZAR_DIRECTO = true;
+        }else{
+          LANZAR_DIRECTO = false;
+        }
 });
 
 }
@@ -54,15 +63,26 @@ function mostrarInformacionCaracter(ev) {
 function lanzarSample(caracter){
    var control = "control"+caracter;
    var estado = $("#"+control).attr("estado");
-   if(estado === 'true') {
-     playPauseSample(control,false);
-     $("#"+control).attr("estado",false);
-   }else{
-     playPauseSample(control,true);
+   console.log("LANZAR_DIRECTO" + LANZAR_DIRECTO);
+   if(LANZAR_DIRECTO === true){
+     lanzarDirecto(control);
      $("#"+control).attr("estado",true);
+   }else{
+      console.log("asdafrsa");
+       if(estado === 'true') {
+         playPauseSample(control,false);
+         $("#"+control).attr("estado",false);
+       }else{
+         playPauseSample(control,true);
+         $("#"+control).attr("estado",true);
+       }
    }
+}
 
-   var estado2 = $("#"+control).attr("estado");
+function lanzarDirecto(nombreControl){
+   var componente = $("#"+nombreControl);
+   componente.prop("currentTime",0);
+   componente.trigger('play');
 }
 
 function playPauseSample(nombreControl,esPlay){
@@ -104,7 +124,7 @@ function agregarControl(){
     }
 
     idUltimoControl++;
-    $("#contenedorControles").append('<br/>  <input type="checkbox" id="check'+idUltimoControl+'"/> <b>'+idUltimoControl+'</b> <audio id="control'+idUltimoControl+'" preload="none" estado="false" controls></audio><input type="file" id="file'+idUltimoControl+'"/>');
+    $("#contenedorControles").append('<br/>  <input type="checkbox" id="check'+idUltimoControl+'"/> <b>'+idUltimoControl+'</b> <audio id="control'+idUltimoControl+'" preload="none" estado="false" controls></audio><input type="file"  id="file'+idUltimoControl+'"/>');
     agregarEventoControlFile("file"+idUltimoControl,idUltimoControl);
     agregarEventoCheckLoop("check"+idUltimoControl,idUltimoControl);
 }
@@ -121,9 +141,7 @@ function agregarEventoCheckLoop(nombre,numero){
    $("#"+nombre).click(function() {
         if (this.checked) {
           $("#control"+numero).attr("loop","");
-          console.log("11111");
         }else{
-          console.log("222222");
           $("#control"+numero).removeAttr("loop");
         }
     });
