@@ -5,6 +5,9 @@ var idUltimoControl = -1;
 var MAX_SHIT = 9;
 var MAX_IMG = 17;
 var LANZAR_DIRECTO = false;
+var interval;
+var validadorPATA = false;
+
 
 window.onload = function() {
   document.onkeypress = mostrarInformacionCaracter;
@@ -23,11 +26,15 @@ $("#partyON").click( function() {
 });
 
 $("#partyOFF").click( function() {
-  cargarFondo(false);
+  partyOff();
 });
 
 $("#agregarControl").click( function() {
   agregarControl();
+});
+
+$("#laPata").click( function() {
+  partyOn();
 });
 
 $("#lanzarDirecto").click( function() {
@@ -38,6 +45,20 @@ $("#lanzarDirecto").click( function() {
         }
 });
 
+}
+
+function partyOn(){
+  if(validadorPATA === false){
+    interval = setInterval(function () {cargarFondo(true)}, 0500);
+    validadorPATA = true;
+  }
+}
+
+function partyOff(){
+    clearInterval(interval);
+    cargarFondo(false);
+    validadorPATA = false;
+    $('#contenedorPrincipal').prop('background','assets/fondo14.gif'); // EL GATOO
 }
 
 function cargarFondo(estado){
@@ -124,7 +145,7 @@ function agregarControl(){
     }
 
     idUltimoControl++;
-    $("#contenedorControles").append('<br/>  <input type="checkbox" id="check'+idUltimoControl+'"/> <b>'+idUltimoControl+'</b> <audio id="control'+idUltimoControl+'" preload="none" estado="false" controls></audio><input type="file"  id="file'+idUltimoControl+'"/>');
+    $("#contenedorControles").append('<br/>  <input type="checkbox" id="check'+idUltimoControl+'"/> <b>'+idUltimoControl+'</b> <audio id="control'+idUltimoControl+'" preload="none" estado="false" controls></audio><input type="file" class="claseInput" id="file'+idUltimoControl+'"/>');
     agregarEventoControlFile("file"+idUltimoControl,idUltimoControl);
     agregarEventoCheckLoop("check"+idUltimoControl,idUltimoControl);
 }
