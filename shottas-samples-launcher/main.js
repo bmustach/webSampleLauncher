@@ -145,7 +145,7 @@ function agregarControl(){
     }
 
     idUltimoControl++;
-    $("#contenedorControles").append('<br/>  <input type="checkbox" id="check'+idUltimoControl+'"/> <b>'+idUltimoControl+'</b> <audio id="control'+idUltimoControl+'" preload="none" estado="false" controls></audio><input type="file" class="claseInput" id="file'+idUltimoControl+'"/>');
+    $("#contenedorControles").append('<br/>  <input type="checkbox" id="check'+idUltimoControl+'"/> <b style="color:red">'+idUltimoControl+'</b> <audio id="control'+idUltimoControl+'" preload="none" estado="false" controls></audio><input type="file" class="claseInput" id="file'+idUltimoControl+'"/>');
     agregarEventoControlFile("file"+idUltimoControl,idUltimoControl);
     agregarEventoCheckLoop("check"+idUltimoControl,idUltimoControl);
 }
