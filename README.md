@@ -1,1 +1,1 @@
-# shottas-samples-launcher
+- Simple web-samples-launcher written in js
