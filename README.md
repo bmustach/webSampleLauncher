@@ -1,1 +1,1 @@
-- Simple web-samples-launcher written in js
+- Simple (google chrome app ) web sample launcher written in js
